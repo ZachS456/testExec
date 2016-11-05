@@ -34,7 +34,7 @@ class RanGen:
     def walk_mc(self, choice=None, i1=None, i2=None):
         song = pykov.Chain(self.oChain)
 
-        if choice == None:
+        if choice == None or choice == 'RAND':
             choice = random.choice(self.totallst).rstrip()
         if i1 == None:
             i1 = 6
