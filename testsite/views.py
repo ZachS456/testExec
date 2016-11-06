@@ -7,17 +7,20 @@ import uuid
 
 
 # Create your views here.
-def myfunc():
-  myfunc.counter += 1
-  return myfunc.counter
-myfunc.counter = 0
+def foo():
+    try:
+        foo.counter += 1
+        return foo.counter
+    except AttributeError:
+        foo.counter = 1
+        return foo.counter
 def Exec(request):
     if request.method == 'POST':
         form = AlgorithmForm(request.POST)
         if form.is_valid():
             filename = form.cleaned_data['name'] 
             filename += ' - ' 
-            filename += uuid.uuid4().hex[:6].upper()
+            filename += str(foo())
             length = form.cleaned_data['length']
             if length is None:
                 length = 6
