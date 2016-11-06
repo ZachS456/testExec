@@ -35,12 +35,14 @@ def runner(length, start, fname):
             lst = nts.split(',')
             #print(lst)
             for ln in lst:
-                pitch = int(ln) + 40
+                if(int(ln) > 0):
+                    pitch = int(ln) + 40
             duration = float(dur)
             time += float(dur)
             mf.addNote(track, channel, pitch, time, duration, volume)
         elif nts != 'END':
-            pitch = int(nts) + 40          # C4 (middle C)
+            if(int(nts) > 0):
+                pitch = int(nts) + 40          # C4 (middle C)
             time += float(dur)             # start on beat 0
             duration = float(dur)         # 1 beat long
             mf.addNote(track, channel, pitch, time, duration, volume)
