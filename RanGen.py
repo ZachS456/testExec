@@ -28,8 +28,8 @@ class RanGen:
         #self.oChain['END','END'] = 1
         self.oChain.stochastic()
 
-        for note1,note2 in self.oChain:
-        	print("Note: %s\n%s\n" % (note1,self.oChain.succ(note1)))
+        #for note1,note2 in self.oChain:
+        	#print("Note: %s\n%s\n" % (note1,self.oChain.succ(note1)))
 
     def walk_mc(self, choice=None, i1=None, i2=None):
         song = pykov.Chain(self.oChain)
@@ -41,5 +41,5 @@ class RanGen:
         if i2 == None:
             i2 = 12
 
-        print("WALK")
+        #print("WALK")
         return song.walk(random.randint(i1,i2),choice)

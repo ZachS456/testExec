@@ -3,6 +3,7 @@ from RanGen import RanGen
 import re
 import pickle
 import argparse
+import os
 def runner(length, start, fname):
     r2 = pickle.load(open('saver.p', 'rb'))
     lster = r2.walk_mc(start, length, length)
@@ -15,8 +16,8 @@ def runner(length, start, fname):
             del dur[1]
         notes.append(dur[0])
     durs = [s.strip(")") for s in durs]
-    print(notes)
-    print(durs)
+    #print(notes)
+    #print(durs)
     # create your MIDI object
     mf = MIDIFile(1)     # only 1 track
     track = 0   # the only track
@@ -30,9 +31,9 @@ def runner(length, start, fname):
     volume = 100
     for nts, dur in zip(notes, durs):
         if nts.count(',') > 0:
-            print(nts)
+            #print(nts)
             lst = nts.split(',')
-            print(lst)
+            #print(lst)
             for ln in lst:
                 pitch = int(ln) + 40
             duration = float(dur)
@@ -47,9 +48,14 @@ def runner(length, start, fname):
     # write it to disk
     with open(fname + ".mid", 'wb') as outf:
         mf.writeFile(outf)
+    path = os.getcwd()
+    path += '/'
+    path += fname
+    path += '.mid'
+    print (path)
 
 def main():
-    print("Hello")
+    #print("Hello")
     parser = argparse.ArgumentParser(description="""Make a log of hashes of the #
                                     filesystem files, and check the log file for changes.""") # Sets up all of the parsing for the program takes a mandatory
     parser.add_argument('-l', '-length', action='store', dest='length', type=int, default=6, help='set the jingle length. Defaults to 6') #argument for checking
