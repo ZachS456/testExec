@@ -25,26 +25,35 @@ def runner(length, start, fname):
 
     time = 0    # start at the beginning
     mf.addTrackName(track, time, "Sample Track")
-    mf.addTempo(track, time, 120)
+    mf.addTempo(track, time, 140)
 
     # add some notes
     channel = 0
     volume = 100
+    tmptime = 0
+    time = 0
     for nts, dur in zip(notes, durs):
         if nts.count(',') > 0:
-            #print(nts)
+            print(nts)
             lst = nts.split(',')
             #print(lst)
             for ln in lst:
-                pitch = int(ln) + 40
+                if int(nts) > 0:
+                    pitch = int(ln) + 40
             duration = float(dur)
-            time += float(dur)
             mf.addNote(track, channel, pitch, time, duration, volume)
+            time += float(dur)
         elif nts != 'END':
-            pitch = int(nts) + 40          # C4 (middle C)
-            time += float(dur)             # start on beat 0
+            if int(nts) > 0:
+                pitch = int(nts) + 40
+            else:
+                tmptime = float(dur)
+                continue
+            if(tmptime > 0):
+                time += tmptime             # start on beat 0
             duration = float(dur)         # 1 beat long
             mf.addNote(track, channel, pitch, time, duration, volume)
+            time += float(dur)
 
     # write it to disk
     fname += '.mid'
@@ -53,7 +62,6 @@ def runner(length, start, fname):
     path = os.getcwd()
     path += '/'
     path += fname
-    path += '.mid'
     print (path)
 
 def main():
@@ -62,7 +70,7 @@ def main():
                                     filesystem files, and check the log file for changes.""") # Sets up all of the parsing for the program takes a mandatory
     parser.add_argument('-l', '-length', action='store', dest='length', type=int, default=6, help='set the jingle length. Defaults to 6') #argument for checking
     parser.add_argument('-s', action='store', dest='start', type=str, default=None, help='User Selected Starting note.')
-    parser.add_argument('-fname', action='store', dest='fname', type=str, default='File' help='The temporary filename for the jingle.')
+    parser.add_argument('-fname', action='store', dest='fname', type=str, default='File', help='The temporary filename for the jingle.')
     args = parser.parse_args()
     runner(args.length, args.start, args.fname)
 

@@ -80,6 +80,8 @@ class RanGen:
                     #to be generated and reocc needs to be reset
                     #else, increment the amount of times the note has recurred
                     if reccTimes >= MAXIMUM_RECURRING_TIMES:
+                        if song.walk_propability([tempNote, tempNote]) == 0:
+                            tempNote = song.move(random.choice(self.totallst.rstrip()))
                         while tempNote == note:
                             tempNote = song.move(note)
                         reccTimes = 0
@@ -117,7 +119,7 @@ class RanGen:
                 output += note
             #print ("%d: %s" % (x, note))
         output += "']"
-        print(notelist)
+        print(noteList)
         #print (song.walk_propability(choice))
-        #return song.walk(random.randint(i1,i2),choice)
-        return noteList
+        return song.walk(random.randint(i1,i2),choice)
+        #return noteList
