@@ -7,6 +7,7 @@ import os
 def runner(length, start, fname):
     r2 = pickle.load(open('saver.p', 'rb'))
     lster = r2.walk_mc(start, length, length)
+    print (lster)
     tmp = [s.split("(") for s in lster]
     notes = []
     durs = []
@@ -35,14 +36,12 @@ def runner(length, start, fname):
             lst = nts.split(',')
             #print(lst)
             for ln in lst:
-                if(int(ln) > 0):
-                    pitch = int(ln) + 40
+                pitch = int(ln) + 40
             duration = float(dur)
             time += float(dur)
             mf.addNote(track, channel, pitch, time, duration, volume)
         elif nts != 'END':
-            if(int(nts) > 0):
-                pitch = int(nts) + 40          # C4 (middle C)
+            pitch = int(nts) + 40          # C4 (middle C)
             time += float(dur)             # start on beat 0
             duration = float(dur)         # 1 beat long
             mf.addNote(track, channel, pitch, time, duration, volume)
