@@ -47,7 +47,8 @@ def runner(length, start, fname):
             mf.addNote(track, channel, pitch, time, duration, volume)
 
     # write it to disk
-    with open(fname + ".mid", 'wb') as outf:
+    fname += '.mid'
+    with open(fname, 'wb') as outf:
         mf.writeFile(outf)
     path = os.getcwd()
     path += '/'
@@ -61,7 +62,7 @@ def main():
                                     filesystem files, and check the log file for changes.""") # Sets up all of the parsing for the program takes a mandatory
     parser.add_argument('-l', '-length', action='store', dest='length', type=int, default=6, help='set the jingle length. Defaults to 6') #argument for checking
     parser.add_argument('-s', action='store', dest='start', type=str, default=None, help='User Selected Starting note.')
-    parser.add_argument('-fname', action='store', dest='fname', type=str, help='The temporary filename for the jingle.')
+    parser.add_argument('-fname', action='store', dest='fname', type=str, default='File' help='The temporary filename for the jingle.')
     args = parser.parse_args()
     runner(args.length, args.start, args.fname)
 

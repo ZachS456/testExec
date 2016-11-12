@@ -117,7 +117,7 @@ class RanGen:
                 output += note
             #print ("%d: %s" % (x, note))
         output += "']"
-        print (output)
+        print(notelist)
         #print (song.walk_propability(choice))
         #return song.walk(random.randint(i1,i2),choice)
         return noteList
